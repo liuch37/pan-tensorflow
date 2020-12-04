@@ -3,7 +3,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 
 ## Task
 
-- [ ] Backbone model
+- [x] Backbone model
 - [ ] FPEM model
 - [ ] FFM model
 - [ ] Integrated model
