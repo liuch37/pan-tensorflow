@@ -3,16 +3,16 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 
 ## Task
 
-- [] Backbone model
-- [] FPEM model
-- [] FFM model
-- [] Integrated model
-- [] Loss Function
-- [] Data preprocessing
-- [] Data postprocessing
-- [] Training pipeline
-- [] Inference pipeline
-- [] Evaluation pipeline
+- [ ] Backbone model
+- [ ] FPEM model
+- [ ] FFM model
+- [ ] Integrated model
+- [ ] Loss Function
+- [ ] Data preprocessing
+- [ ] Data postprocessing
+- [ ] Training pipeline
+- [ ] Inference pipeline
+- [ ] Evaluation pipeline
 
 ## Command
 
@@ -31,15 +31,14 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 ## Results
 
 ### CTW1500
-![Statstics for CTW training](https://github.com/liuch37/pan-pytorch/blob/master/misc/ctw_statistics.png)
 
 Model   | Precision | Recall | F score | FPS (CPU) + pa.py   | FPS (1 GPU) + pa.py | FPS (1 GPU) + pa.pyx |
 ------- | --------- | ------ | ------- | ------------------- | ------------------- | -------------------- |
-PAN-640 | 0.8509    | 0.7927 | 0.8208  | 0.3493              | 4.6347              | 21.167               |
+PAN-640 |           |        |         |                     |                     |                      |
 
 ## Supported Dataset
 
-- [x] CTW1500: https://github.com/Yuliang-Liu/Curve-Text-Detector
+- [ ] CTW1500: https://github.com/Yuliang-Liu/Curve-Text-Detector
 
 ## Source
 
