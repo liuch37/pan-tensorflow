@@ -3,7 +3,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 
 ## Task
 
-- [ ] Backbone model
+- [x] Backbone model
 - [ ] FPEM model
 - [ ] FFM model
 - [ ] Integrated model
@@ -29,6 +29,7 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 ``
 
 ## Results
+*Default with ResNet-50 model.
 
 ### CTW1500
 
