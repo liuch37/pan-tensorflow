@@ -4,7 +4,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 ## Task
 
 - [x] Backbone model
-- [ ] FPEM model
+- [x] FPEM model
 - [ ] FFM model
 - [ ] Integrated model
 - [ ] Loss Function
