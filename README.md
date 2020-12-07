@@ -29,7 +29,7 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 ``
 
 ## Results
-*Default with ResNet-50 model.
+*Default using ResNet-50 backbone model, also support ResNet-101 backbone model.
 
 ### CTW1500
 
