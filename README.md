@@ -6,7 +6,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 - [x] Backbone model
 - [x] FPEM model
 - [x] FFM model
-- [ ] Integrated model
+- [x] Integrated model
 - [ ] Loss Function
 - [ ] Data preprocessing
 - [ ] Data postprocessing
