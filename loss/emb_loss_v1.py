@@ -3,7 +3,6 @@ This code is to implement embedding loss.
 '''
 import tensorflow as tf
 import numpy as np
-import pdb
 
 class EmbLoss_v1(tf.keras.Model):
     def __init__(self, feature_dim=4, loss_weight=1.0):
