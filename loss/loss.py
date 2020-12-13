@@ -19,7 +19,7 @@ def emb_loss(emb, instance, kernel, training_mask, reduce, loss_weight):
     loss = EmbLoss_v1(feature_dim=4, loss_weight=loss_weight)
     return loss(emb, instance, kernel, training_mask, reduce)
 
-def loss(out, gt_texts, gt_kernels, training_masks, gt_instances, loss_text_weight, loss_kernel_weight, loss_emb_weight):
+def loss_tensor(out, gt_texts, gt_kernels, training_masks, gt_instances, loss_text_weight, loss_kernel_weight, loss_emb_weight):
         # output
         texts = out[:, :, :, 0]
         kernels = out[:, :, :, 1:2]
@@ -58,6 +58,20 @@ def loss(out, gt_texts, gt_kernels, training_masks, gt_instances, loss_text_weig
 
         return losses
 
+def loss_keras(training_mask, loss_text_weight, loss_kernel_weight, loss_emb_weight):
+    def loss(y_true, y_pred):
+        # y_true: [batch, H, W, texts+kernels+instances]
+        # y_pred: [batch, H, W, texts+kernels+embeddings]
+        losses = loss_tensor(y_pred, y_true[:, :, :, 0], y_true[:, :, :, 1:2], training_mask, y_true[:, :, :, 2], loss_text_weight, loss_kernel_weight, loss_emb_weight)
+        loss_text = tf.reduce_mean(losses['loss_text'])
+        loss_kernels = tf.reduce_mean(losses['loss_kernels'])
+        loss_emb = tf.reduce_mean(losses['loss_emb'])
+        loss_total = loss_text + loss_kernels + loss_emb
+
+        return loss_total
+
+    return loss
+
 # unit testing
 if __name__ == '__main__':
 
@@ -82,6 +96,6 @@ if __name__ == '__main__':
     gt_instance = tf.random.uniform(shape=[batch_size,Height,Width], maxval=7, dtype=tf.dtypes.int32)
     gt_instance = tf.cast(gt_instance, dtype=tf.float32)
 
-    losses = loss(out, gt_texts, gt_kernels, training_mask, gt_instance, loss_text_weight, loss_kernel_weight, loss_emb_weight)
+    losses = loss_tensor(out, gt_texts, gt_kernels, training_mask, gt_instance, loss_text_weight, loss_kernel_weight, loss_emb_weight)
 
     print("Total losses:", losses)
