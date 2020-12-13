@@ -7,7 +7,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 - [x] FPEM model
 - [x] FFM model
 - [x] Integrated model
-- [ ] Loss Function
+- [x] Loss Function
 - [ ] Data preprocessing
 - [ ] Data postprocessing
 - [ ] Training pipeline
