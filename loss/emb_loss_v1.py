@@ -115,11 +115,9 @@ if __name__ == '__main__':
     Channel = 4
 
     emb = tf.random.uniform(shape=[batch_size,Height,Width,Channel])
-    instance = tf.random.uniform(shape=[batch_size,Height,Width])
     instance = tf.random.uniform(shape=[batch_size,Height,Width], maxval=7, dtype=tf.dtypes.int32)
     instance = tf.cast(instance, dtype=tf.float32)
     kernel = tf.random.uniform(shape=[batch_size,Height,Width])
-    training_mask = tf.random.uniform(shape=[batch_size,Height,Width])
     training_mask = tf.random.uniform(shape=[batch_size,Height,Width], maxval=2, dtype=tf.dtypes.int32)
     training_mask = tf.cast(training_mask, dtype=tf.float32)
 
