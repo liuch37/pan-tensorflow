@@ -298,7 +298,7 @@ class PAN_CTW(tf.keras.utils.Sequence):
             gt_bboxes[i] = (tl[0], tl[1], br[0], br[1])
 
         if self.is_transform:
-            img = tf.image.random_saturation(img, 0, 1.5) # range to be fixed
+            img = tf.image.random_saturation(img, 0.5, 1.5) # range to be fixed
             img = tf.image.random_brightness(img, 32.0/255)
             img = tf.cast(img, dtype=tf.float32)
         else:
