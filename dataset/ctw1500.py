@@ -298,15 +298,17 @@ class PAN_CTW(tf.keras.utils.Sequence):
             gt_bboxes[i] = (tl[0], tl[1], br[0], br[1])
 
         if self.is_transform:
-            img = tf.image.random_saturation(img, -1.5, 1.5)
+            img = tf.image.random_saturation(img, 0, 1.5) # range to be fixed
             img = tf.image.random_brightness(img, 32.0/255)
-        
-        img = tf.convert_to_tensor(img, dtype=tf.float32)
+            img = tf.cast(img, dtype=tf.float32)
+        else:
+            img = tf.convert_to_tensor(img, dtype=tf.float32)
+
         img = img / 255.0
         img = (img - [0.485, 0.456, 0.406]) / [0.229, 0.224, 0.225]
 
         gt_text = tf.convert_to_tensor(gt_text, dtype=tf.float32)
-        gt_kernels = tf.convert_to_tensor(gt_kernels, dtype=tf.float32)
+        gt_kernels = tf.transpose(tf.convert_to_tensor(gt_kernels, dtype=tf.float32), [1, 2, 0])
         training_mask = tf.convert_to_tensor(training_mask, dtype=tf.float32)
         gt_instance = tf.convert_to_tensor(gt_instance, dtype=tf.float32)
         gt_bboxes = tf.convert_to_tensor(gt_bboxes, dtype=tf.float32)
@@ -380,3 +382,67 @@ class PAN_CTW(tf.keras.utils.Sequence):
                     img_metas.append(data['img_metas'])
 
             return tf.stack(imgs), img_metas
+
+# unit testing
+if __name__ == '__main__':
+
+    train_dataset = PAN_CTW(split='train',
+                            batch_size=16,
+                            is_transform=True,
+                            img_size=640,
+                            short_size=640,
+                            kernel_scale=0.7,
+                            report_speed=False)
+
+    for i, data in enumerate(train_dataset):
+        # convert to numpy and plot
+        print("Process image batch index:", i)
+        imgs = data[0]
+        gt_texts = data[1]
+        gt_kernels = data[2]
+        training_masks = data[3]
+        gt_instances = data[4]
+        gt_bboxes = data[5]
+        imgs = imgs.numpy()[0,:,:,:]
+        gt_texts = gt_texts.numpy()[0,:,:]
+        gt_kernels = gt_kernels.numpy()[0,:,:,0]
+        training_masks = training_masks.numpy()[0,:,:]
+        gt_instances = gt_instances.numpy()[0,:,:]
+        '''
+        plt.figure(1)
+        plt.imshow(imgs)
+        plt.figure(2)
+        plt.imshow(gt_texts)
+        plt.title('gt_texts')
+        plt.figure(3)
+        plt.imshow(gt_kernels)
+        plt.title('gt_kernels')
+        plt.figure(4)
+        plt.imshow(training_masks)
+        plt.title('training_masks')
+        plt.figure(5)
+        plt.imshow(gt_instances)
+        plt.title('gt_instances')
+        plt.show()
+        pdb.set_trace()
+        '''
+    test_dataset = PAN_CTW(split='test',
+                           batch_size=1,
+                           is_transform=False,
+                           img_size=None,
+                           short_size=640,
+                           kernel_scale=0.7,
+                           report_speed=False)
+
+    for i, data in enumerate(test_dataset):
+        # convert to numpy and plot
+        print("Process image batch index:", i)
+        imgs = data[0]
+        img_metas = data[1]
+        print(img_metas)
+        '''
+        imgs = imgs.numpy()[0]
+        plt.imshow(imgs)
+        plt.show()
+        pdb.set_trace()
+        '''
