@@ -369,7 +369,7 @@ class PAN_CTW(tf.keras.utils.Sequence):
                     gt_instances.append(data['gt_instances'])
                     gt_bboxes.append(data['gt_bboxes'])
 
-            return tf.stack(imgs), tf.stack(gt_texts), tf.stack(gt_kernels), tf.stack(training_masks), tf.stack(gt_instances), tf.stack(gt_bboxes)
+            return tf.stack(imgs), tf.concat([tf.expand_dims(tf.stack(gt_texts), -1), tf.stack(gt_kernels), tf.expand_dims(tf.stack(training_masks), -1), tf.expand_dims(tf.stack(gt_instances), -1)], axis=3)
 
         elif self.split == 'test':
             imgs = []
@@ -397,15 +397,15 @@ if __name__ == '__main__':
     for i, data in enumerate(train_dataset):
         # convert to numpy and plot
         print("Process image batch index:", i)
-        imgs = data[0]
-        gt_texts = data[1]
-        gt_kernels = data[2]
-        training_masks = data[3]
-        gt_instances = data[4]
-        gt_bboxes = data[5]
+        X, Y = data
+        imgs = X
+        gt_texts = Y[:,:,:,0]
+        gt_kernels = Y[:,:,:,1]
+        training_masks = Y[:,:,:,2]
+        gt_instances = Y[:,:,:,3]
         imgs = imgs.numpy()[0,:,:,:]
         gt_texts = gt_texts.numpy()[0,:,:]
-        gt_kernels = gt_kernels.numpy()[0,:,:,0]
+        gt_kernels = gt_kernels.numpy()[0,:,:]
         training_masks = training_masks.numpy()[0,:,:]
         gt_instances = gt_instances.numpy()[0,:,:]
         '''
