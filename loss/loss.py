@@ -58,11 +58,11 @@ def loss_tensor(out, gt_texts, gt_kernels, training_masks, gt_instances, loss_te
 
         return losses
 
-def loss_keras(training_mask, loss_text_weight, loss_kernel_weight, loss_emb_weight):
+def loss_keras(loss_text_weight, loss_kernel_weight, loss_emb_weight):
     def loss(y_true, y_pred):
-        # y_true: [batch, H, W, texts+kernels+instances]
+        # y_true: [batch, H, W, texts+kernels+training_masks+instances]
         # y_pred: [batch, H, W, texts+kernels+embeddings]
-        losses = loss_tensor(y_pred, y_true[:, :, :, 0], y_true[:, :, :, 1:2], training_mask, y_true[:, :, :, 2], loss_text_weight, loss_kernel_weight, loss_emb_weight)
+        losses = loss_tensor(y_pred, y_true[:, :, :, 0], y_true[:, :, :, 1:2], y_true[:, :, :, 2], y_true[:, :, :, 3], loss_text_weight, loss_kernel_weight, loss_emb_weight)
         loss_text = tf.reduce_mean(losses['loss_text'])
         loss_kernels = tf.reduce_mean(losses['loss_kernels'])
         loss_emb = tf.reduce_mean(losses['loss_emb'])
