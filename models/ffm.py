@@ -12,16 +12,16 @@ class FFM(tf.keras.Model):
     def _upsample(self, x, size, scale=1):
         _, Hout, Wout, _ = size
         _, Hx, Wx, _ = x.shape
-        return tf.keras.layers.UpSampling2D(size=(int(Hout/Hx//scale), int(Wout/Wx//scale)), interpolation='bilinear')(x)    
+        return tf.keras.layers.UpSampling2D(size=(2*scale, 2*scale), interpolation='bilinear')(x)
 
     def call(self, f1_1, f2_1, f3_1, f4_1, f1_2, f2_2, f3_2, f4_2):
         f1 = f1_1 + f1_2
         f2 = f2_1 + f2_2
         f3 = f3_1 + f3_2
         f4 = f4_1 + f4_2
-        f2 = self._upsample(f2, f1.shape)
-        f3 = self._upsample(f3, f1.shape)
-        f4 = self._upsample(f4, f1.shape)
+        f2 = self._upsample(f2, f1.shape, scale=1)
+        f3 = self._upsample(f3, f1.shape, scale=2)
+        f4 = self._upsample(f4, f1.shape, scale=4)
         f = tf.concat([f1, f2, f3, f4], 3)
 
         return f
@@ -29,8 +29,8 @@ class FFM(tf.keras.Model):
 # unit testing
 if __name__ == '__main__':
     batch_size = 32
-    Height = 512
-    Width = 768
+    Height = 640
+    Width = 640
     Channel = 128
     f1_1 = tf.random.uniform(shape=[batch_size,Height//4,Width//4,Channel])
     f2_1 = tf.random.uniform(shape=[batch_size,Height//8,Width//8,Channel])
