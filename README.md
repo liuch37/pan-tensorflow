@@ -9,7 +9,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 - [x] Integrated model
 - [x] Loss Function
 - [x] Data preprocessing
-- [ ] Data postprocessing
+- [x] Data postprocessing
 - [ ] Training pipeline
 - [ ] Inference pipeline
 - [ ] Evaluation pipeline
