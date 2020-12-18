@@ -238,7 +238,7 @@ class PAN_CTW(tf.keras.utils.Sequence):
 
     def __len__(self):
         # returns the number of batches
-        return math.ceil(len(self.img_paths) / self.batch_size)
+        return math.floor(len(self.img_paths) / self.batch_size)
     
     def prepare_train_data_single(self, index):
         # return one single data point
