@@ -40,7 +40,7 @@ class FPEM(tf.keras.Model):
     def _upsample_add(self, x, y):
         _, Hy, Wy, _ = y.shape
         _, Hx, Wx, _ = x.shape
-        return tf.keras.layers.UpSampling2D(size=(int(Hy/Hx), int(Wy/Wx)), interpolation='bilinear')(x) + y
+        return tf.keras.layers.UpSampling2D(size=(2, 2), interpolation='bilinear')(x) + y
     
     def call(self, f1, f2, f3, f4):
         f3 = self.smooth_layer3_1(self.dwconv3_1(self._upsample_add(f4, f3)))
