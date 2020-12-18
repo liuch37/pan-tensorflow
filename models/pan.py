@@ -26,11 +26,6 @@ class PAN(tf.keras.Model):
         self.ffm = FFM()
 
         self.det_head = PA_Head(hidden_dim, num_classes)
-   
-    def _upsample(self, x, size, scale=1):
-        _, Hout, Wout, _ = size
-        _, Hx, Wx, _ = x.shape
-        return tf.keras.layers.UpSampling2D(size=(int(Hout/Hx//scale), int(Wout/Wx//scale)), interpolation='bilinear')(x)    
 
     def call(self, imgs):
         # backbone
