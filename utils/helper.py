@@ -12,8 +12,7 @@ import zipfile
 
 def upsample(x, size, scale=1):
         _, Hout, Wout, _ = size
-        _, Hx, Wx, _ = x.shape
-        return tf.keras.layers.UpSampling2D(size=(int(Hout/Hx//scale), int(Wout/Wx//scale)), interpolation='bilinear')(x)
+        return tf.image.resize(x, size=(Hout//scale, Wout//scale), method='bilinear')
 
 def adjust_learning_rate(lr, num_epoch, num_batch):
     starter_learning_rate = lr
