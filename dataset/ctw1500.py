@@ -234,6 +234,11 @@ class PAN_CTW(tf.keras.utils.Sequence):
             self.img_paths.extend(img_paths)
             self.gt_paths.extend(gt_paths)
 
+        # random shuffle datasets
+        combine = list(zip(self.img_paths, self.gt_paths))
+        random.shuffle(combine)
+        self.img_paths, self.gt_paths = zip(*combine)
+
         self.max_word_num = 200
 
     def __len__(self):
