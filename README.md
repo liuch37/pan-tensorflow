@@ -39,7 +39,7 @@ PAN-640 |           |        |         |                     |                  
 
 ## Supported Dataset
 
-- [ ] CTW1500: https://github.com/Yuliang-Liu/Curve-Text-Detector
+- [x] CTW1500: https://github.com/Yuliang-Liu/Curve-Text-Detector
 
 ## Source
 
