@@ -64,6 +64,7 @@ if __name__ == '__main__':
     print("Create dataset......")
     if dataset_type == 'ctw': # ctw dataset
         train_dataloader = ctw1500.PAN_CTW(split='train',
+                                           shuffle=True,
                                            batch_size=batch_size,
                                            is_transform=True,
                                            img_size=640,
@@ -122,6 +123,9 @@ if __name__ == '__main__':
         losses_rec = AverageMeter()
         ious_text = AverageMeter()
         ious_kernel = AverageMeter()
+
+        # random shuffle dataset
+        train_dataloader.on_epoch_end()
 
         for iter, data in enumerate(train_dataloader):
             outputs = dict()
