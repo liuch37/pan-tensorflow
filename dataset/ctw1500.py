@@ -192,6 +192,7 @@ class PAN_CTW(tf.keras.utils.Sequence):
     def __init__(self,
                  batch_size=16,
                  split='train',
+                 shuffle=False,
                  is_transform=False,
                  img_size=None,
                  short_size=640,
@@ -204,6 +205,8 @@ class PAN_CTW(tf.keras.utils.Sequence):
         self.img_size = img_size if (img_size is None or isinstance(img_size, tuple)) else (img_size, img_size)
         self.kernel_scale = kernel_scale
         self.short_size = short_size
+
+        self.shuffle = shuffle
 
         if split == 'train':
             data_dirs = [ctw_train_data_dir]
@@ -233,11 +236,6 @@ class PAN_CTW(tf.keras.utils.Sequence):
 
             self.img_paths.extend(img_paths)
             self.gt_paths.extend(gt_paths)
-
-        # random shuffle datasets
-        combine = list(zip(self.img_paths, self.gt_paths))
-        random.shuffle(combine)
-        self.img_paths, self.gt_paths = zip(*combine)
 
         self.max_word_num = 200
 
@@ -388,17 +386,25 @@ class PAN_CTW(tf.keras.utils.Sequence):
 
             return tf.stack(imgs), img_metas
 
+    def on_epoch_end(self):
+        if self.shuffle:
+            # random shuffle datasets
+            combine = list(zip(self.img_paths, self.gt_paths))
+            random.shuffle(combine)
+            self.img_paths, self.gt_paths = zip(*combine)
+
 # unit testing
 if __name__ == '__main__':
 
     train_dataset = PAN_CTW(split='train',
+                            shuffle=True,
                             batch_size=16,
                             is_transform=True,
                             img_size=640,
                             short_size=640,
                             kernel_scale=0.7,
                             report_speed=False)
-
+    train_dataset.on_epoch_end()
     for i, data in enumerate(train_dataset):
         # convert to numpy and plot
         print("Process image batch index:", i)
@@ -431,7 +437,9 @@ if __name__ == '__main__':
         plt.show()
         pdb.set_trace()
         '''
+    train_dataset.on_epoch_end()
     test_dataset = PAN_CTW(split='test',
+                           shuffle=False,
                            batch_size=1,
                            is_transform=False,
                            img_size=None,
