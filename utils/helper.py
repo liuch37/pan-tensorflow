@@ -26,11 +26,12 @@ def get_results(out, img_meta, min_area, min_score, bbox_type):
     outputs = dict()
 
     score = tf.math.sigmoid(out[:, :, :, 0])
-    kernels = out[:, :, :, :2] > 0
+    kernels = tf.cast(out[:, :, :, :2] > 0, dtype=tf.float32)
     text_mask = kernels[:, :, :, :1]
-    kernels[:, :, :, 1:] = kernels[:, :, :, 1:] * text_mask
+    masked_kernels = kernels[:, :, :, 1:] * text_mask
+    kernels = tf.concat((kernels[:, :, :, 0:1], masked_kernels), axis=3)
     emb = out[:, :, :, 2:]
-    emb = emb * tf.cast(text_mask, dtype=tf.float32)
+    emb = emb * text_mask
 
     score = score.numpy()[0].astype(np.float32)
     kernels = kernels.numpy()[0].astype(np.uint8)
@@ -44,8 +45,8 @@ def get_results(out, img_meta, min_area, min_score, bbox_type):
     label = pa(kernels, emb)
 
     # image size
-    org_img_size = img_meta['org_img_size'][0]
-    img_size = img_meta['img_size'][0]
+    org_img_size = img_meta['org_img_size']
+    img_size = img_meta['img_size']
 
     label_num = np.max(label) + 1
     label = cv2.resize(label, (img_size[1], img_size[0]), interpolation=cv2.INTER_NEAREST)
