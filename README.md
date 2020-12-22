@@ -33,9 +33,9 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 
 ### CTW1500
 
-Model   | Precision | Recall | F score | FPS (CPU) + pa.py   | FPS (1 GPU) + pa.py | FPS (1 GPU) + pa.pyx |
-------- | --------- | ------ | ------- | ------------------- | ------------------- | -------------------- |
-PAN-640 |           |        |         |                     |                     |                      |
+Model   | Precision | Recall | F score | 
+------- | --------- | ------ | ------- | 
+PAN-640 |           |        |         | 
 
 ## Supported Dataset
 
