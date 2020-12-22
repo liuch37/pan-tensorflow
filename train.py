@@ -30,7 +30,7 @@ if __name__ == '__main__':
         '--epoch', type=int, default=601, help='number of epochs')
     parser.add_argument('--output', type=str, default='outputs', help='output folder name')
     parser.add_argument('--model', type=str, default='', help='model path')
-    parser.add_argument('--dataset_type', type=str, default='ctw', help="dataset type - ctw | tt | synthtext | msra | ic15")
+    parser.add_argument('--dataset_type', type=str, default='ctw', help="dataset type - ctw")
     parser.add_argument('--gpu', type=bool, default=False, help="GPU being used or not")
 
     opt = parser.parse_args()
