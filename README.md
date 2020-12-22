@@ -12,7 +12,7 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 - [x] Data postprocessing
 - [x] Training pipeline
 - [x] Inference pipeline
-- [ ] Evaluation pipeline
+- [x] Evaluation pipeline
 
 ## Command
 
