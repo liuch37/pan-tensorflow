@@ -190,5 +190,5 @@ if __name__ == '__main__':
         if epoch % 100 == 0:
             print("Save model......")
             # Save the weights
-            model.save_weights('%s/model_epoch_%s' % (output_path, str(iter)), overwrite=False)
+            model.save_weights('%s/model_epoch_%s' % (output_path, str(epoch)), overwrite=False)
 
