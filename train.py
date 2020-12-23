@@ -19,6 +19,11 @@ from loss.loss import loss_tensor
 from utils.helper import adjust_learning_rate, upsample
 from utils.average_meter import AverageMeter
 
+# GPU handling
+physical_devices = tf.config.experimental.list_physical_devices('GPU')
+assert len(physical_devices) > 0, "Not enough GPU hardware devices available"
+tf.config.experimental.set_memory_growth(physical_devices[0], True)
+
 # main function:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
