@@ -19,13 +19,13 @@ This is an unofficial TensorFlow re-implementation of paper "Efficient and Accur
 ### Training
 
 ``
-python train.py --batch 32 --epoch 5000 --dataset_type ctw --gpu True
+python train.py --batch 16 --epoch 601 --dataset_type ctw --gpu True
 ``
 
 ### Inference
 
 ``
-python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/model_epoch_0 --bbox_type poly
+python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/model_epoch_600 --bbox_type poly
 ``
 
 ## Results
@@ -35,7 +35,7 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 
 Model   | Precision | Recall | F score | 
 ------- | --------- | ------ | ------- | 
-PAN-640 |           |        |         | 
+PAN-320 |           |        |         | 
 
 ## Supported Dataset
 
