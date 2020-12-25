@@ -2,4 +2,3 @@ opencv-python
 tensorflow >= 2.0.0
 pyclipper
 Cython (optional if want to speed up postprocessing)
-PIL
