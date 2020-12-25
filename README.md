@@ -35,7 +35,7 @@ python inference.py --input ./data/CTW1500/test/text_image --model ./outputs/mod
 
 Model   | Precision | Recall | F score | 
 ------- | --------- | ------ | ------- | 
-PAN-320 |           |        |         | 
+PAN-320 | 0.8472    | 0.6939 | 0.7629  | 
 
 ## Supported Dataset
 
