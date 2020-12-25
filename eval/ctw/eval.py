@@ -10,7 +10,7 @@ import cv2
 
 project_root = '../../'
 
-pred_root = project_root + 'results/submit_ctw'
+pred_root = project_root + 'results/ctw/submit_data'
 gt_root = project_root + 'data/CTW1500/test/text_label_circum/'
 img_root = project_root + 'data/CTW1500/test/text_image/'
 
